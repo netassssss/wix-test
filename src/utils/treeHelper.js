@@ -72,10 +72,30 @@ export const generateNewNode = (nodes, node) => {
   return { ...newNode, current: `${prefix}_${to.length + 1}` };
 };
 
+export const getAllChildrenNodes = (nodes, index) => {
+  const visited = new Set();
+  const toDelete = [nodes[index].documentId];
+  const dfs = (currentNode, currentNodes, idx) => {
+    debugger;
+    if (index === -1 || !currentNode.to || visited.has(currentNode)) return;
+    const { to } = currentNodes[idx];
+    if (!to) return;
+    for (let i = 0; i < to.length; i += 1) {
+      const toIndx = currentNodes.findIndex((n) => n.current === to[i]);
+      toDelete.push(currentNodes[toIndx].documentId);
+      dfs(currentNodes[toIndx], currentNodes, toIndx);
+      visited.add(currentNodes[toIndx]);
+    }
+  };
+  dfs(nodes[index], nodes, index);
+  return toDelete;
+};
+
 export default {
   getParentsNode,
   generateNewNode,
   getVisibleState,
+  getAllChildrenNodes,
   setNodesExpandVisibility,
   setNodesInitialVisiblilty,
 };

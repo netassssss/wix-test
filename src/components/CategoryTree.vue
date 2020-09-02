@@ -8,6 +8,7 @@
                      :hidePlus="!areChildrenVisible(index)"
                      @expand="() => expand(index, item)"
                      @add="() => addNode(index, item)"
+                     @deleteNode="() => deleteNode(index)"
                      v-if="item.visible"/>
     </ul>
   </div>
@@ -39,6 +40,9 @@ export default {
     },
     areChildrenVisible(index) {
       return getVisibleState(this.data, index);
+    },
+    deleteNode(index) {
+      this.$emit('deleteNode', { index });
     },
   },
 };

@@ -7,6 +7,7 @@ import getters from './getters';
 import {
   getParentsNode,
   generateNewNode,
+  getAllChildrenNodes,
   setNodesExpandVisibility,
   setNodesInitialVisiblilty,
 } from '../utils/treeHelper';
@@ -38,6 +39,11 @@ export default new Vuex.Store({
         insert,
         update: getParentsNode(state.nodes, index, insert.current),
       });
+      commit('SET_NODES', setNodesInitialVisiblilty(response.body.data));
+    },
+    async deleteNodes({ state, commit }, { index }) {
+      const documentIds = getAllChildrenNodes(state.nodes, index);
+      const response = await Api.deleteNode({ documentIds });
       commit('SET_NODES', setNodesInitialVisiblilty(response.body.data));
     },
   },

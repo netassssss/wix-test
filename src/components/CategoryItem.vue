@@ -11,7 +11,8 @@
         <div :class="{'category-filler': !isLeaf}">{{ name }}</div>
       </li>
     </div>
-    <button @click="addNode">Add</button>
+    <button @click="addNode">Add Sub Category</button>
+    <button @click="deleteNode">Delete</button>
   </div>
 </template>
 <script>
@@ -41,6 +42,9 @@ export default {
     },
     addNode() {
       this.$emit('add');
+    },
+    deleteNode() {
+      this.$emit('deleteNode');
     },
   },
 };

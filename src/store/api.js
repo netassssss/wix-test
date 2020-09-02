@@ -10,4 +10,8 @@ export default class {
   static addNode({ insert, update }) {
     return Http.post(`${SERVER_API}/api/add-node`, { insert, update });
   }
+
+  static deleteNode({ documentIds }) {
+    return Http.post(`${SERVER_API}/api/delete-node`, { documentIds });
+  }
 }

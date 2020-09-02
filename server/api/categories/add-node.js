@@ -26,5 +26,4 @@ module.exports = async (args) => {
   }
 
   getTree(args);
-  // res.send(true);
 };
