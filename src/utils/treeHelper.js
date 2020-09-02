@@ -1,6 +1,4 @@
 /* eslint no-param-reassign: 0 */
-/* eslint no-debugger: 0 */
-
 export const setNodesInitialVisiblilty = (nodes) => nodes.map((node) => {
   let visible = false;
   if (node.level === 0) visible = true;
@@ -76,7 +74,6 @@ export const getAllChildrenNodes = (nodes, index) => {
   const visited = new Set();
   const toDelete = [nodes[index].documentId];
   const dfs = (currentNode, currentNodes, idx) => {
-    debugger;
     if (index === -1 || !currentNode.to || visited.has(currentNode)) return;
     const { to } = currentNodes[idx];
     if (!to) return;

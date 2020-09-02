@@ -1,17 +1,11 @@
 const { path } = require('../../consts/firebase');
-const { parseReqArguments } = require('../../utils/dbHelper');
+const { parseReqArguments, asyncForeach } = require('../../utils/dbHelper');
 const getTree = require('./get-tree');
 
 const deleteDocument = async (firebase, documentId) => {
   const catRef = firebase.collection(path).doc(documentId);
   const doc = await catRef.get();
   doc.ref.delete();
-};
-
-const asyncForeach = async (array, callback) => {
-  for (let index = 0; index < array.length; index += 1) {
-    await callback(array[index], index, array);
-  }
 };
 
 module.exports = async (args) => {

@@ -29,12 +29,12 @@ export default new Vuex.Store({
       const response = await Api.getTree();
       commit('SET_NODES', setNodesInitialVisiblilty(response.body.data));
     },
-    expand({ commit, state }, { index, item }) {
-      const nodes = setNodesExpandVisibility([...state.nodes], index, item);
+    expand({ commit, state }, { index, node }) {
+      const nodes = setNodesExpandVisibility([...state.nodes], index, node);
       commit('SET_NODES', nodes);
     },
-    async add({ commit, state }, { index, item }) {
-      const insert = generateNewNode(state.nodes, item);
+    async add({ commit, state }, { index, node }) {
+      const insert = generateNewNode(state.nodes, node);
       const response = await Api.addNode({
         insert,
         update: getParentsNode(state.nodes, index, insert.current),

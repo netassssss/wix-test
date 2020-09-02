@@ -2,7 +2,7 @@ const { path } = require('../../consts/firebase');
 const { parseReqArguments, generateDocumentName } = require('../../utils/dbHelper');
 const getTree = require('./get-tree');
 
-const setDocumentInDb = async (firebase, path, data, insert) => {
+const setDocumentInDb = async (firebase, data, insert) => {
   const documentName = insert
     ? generateDocumentName(Math.floor(Math.random() * 100))
     : data.documentId;
@@ -19,8 +19,8 @@ module.exports = async (args) => {
   const { insert, update } = req.body;
 
   try {
-    await setDocumentInDb(firebase, path, insert, true);
-    await setDocumentInDb(firebase, path, update, false);
+    await setDocumentInDb(firebase, insert, true);
+    await setDocumentInDb(firebase, update, false);
   } catch (e) {
     throw new Error(e);
   }

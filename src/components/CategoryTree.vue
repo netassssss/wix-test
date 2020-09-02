@@ -1,15 +1,16 @@
 <template>
   <div class="category-container">
-    <ul v-for="(item, index) in data"
+    <ul v-for="(node, index) in data"
        :key="index">
-      <category-item :name="item.current"
-                     :indent="item.level"
-                     :isLeaf="!item.to"
+      <category-item :name="node.current"
+                     :indent="node.level"
+                     :isLeaf="!node.to"
                      :hidePlus="!areChildrenVisible(index)"
-                     @expand="() => expand(index, item)"
-                     @add="() => addNode(index, item)"
+                     @expand="() => expand(index, node)"
+                     @add="() => addNode(index, node)"
                      @deleteNode="() => deleteNode(index)"
-                     v-if="item.visible"/>
+                     @edit="() => editNode(node)"
+                     v-if="node.visible"/>
     </ul>
   </div>
 </template>
@@ -32,17 +33,20 @@ export default {
     },
   },
   methods: {
-    expand(index, item) {
-      this.$emit('expand', { index, item });
+    expand(index, node) {
+      this.$emit('expand', { index, node });
     },
-    addNode(index, item) {
-      this.$emit('add', { index, item });
+    addNode(index, node) {
+      this.$emit('add', { index, node });
     },
     areChildrenVisible(index) {
       return getVisibleState(this.data, index);
     },
     deleteNode(index) {
       this.$emit('deleteNode', { index });
+    },
+    editNode(node) {
+      this.$emit('editNode', { node });
     },
   },
 };
